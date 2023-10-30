@@ -1,13 +1,12 @@
 <html>
- 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>Kimberly Mitchell's Aframe World</title>
+    <title>Pokémon Forest</title>
 
-    <script src="https://aframe.io/releaes/0.7.0/aframe.min.js"></script>
+   <script src="https://aframe.io/releaes/0.7.0/aframe.min.js"></script>
 
     <meta aframe-injected="" name="mobile-web-app-capable" content="yes" />
 
@@ -20,17 +19,35 @@
     <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
   </head>
 
-
   <body>
-  
     <a-scene
       loading-screen="dotsColor: #DF5532; backgroundColor: #ffffff00"
-      ; color:#AAB; far: 500; near: 10"
+      color="#AAB"
+      far="500"
+      near="10"
     >
-      
+      <!-- Terrain -->
+      <a-plane
+        src="grounds/grass.jpg"
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="100"
+        height="100"
+        color="#7BC8A4"
+        material=""
+        geometry=""
+        scale="5 5 1"
+      ></a-plane>
 
+       <!-- FOG -->
 
-      <!-- Wall part 1 -->
+      <a-entity
+        position="0 2.25 -15"
+        particle-system="color: #EF0000,#44CC00"
+      ></a-entity>
+
+    <!-- Walls -->
+           <!-- Wall part 1 -->
 
        <a-entity 
         gltf-model="models/brickwall.glb" 
@@ -97,105 +114,70 @@
         rotation="0 184.85 0" 
         scale="14 7 7"
       ></a-entity>
-     
+
 
       <!-- Sky -->
-
       <a-sky src="skies/skyblock-sky.jpg" rotation="0 -130 0"> </a-sky>
 
 
-      <!-- Turtwig -->
-
-     <a-entity gltf-model="models/turtwig.glb" position="44.3668 12.89926 49.91084" rotation="0 41.15670433983729 0" scale="130 130 130" visible="" id="turtwig"></a-entity>
-
-      <!-- GRASS -->
-
-      <a-plane
-        src="grounds/grass.jpg"
-        position="0 0 -4"
-        rotation="-90 0 0"
-        width="100"
-        height="100"
-        color="#7BC8A4"
-        material=""
-        geometry=""
-        scale="5 5 1"
-      ></a-plane>
-
-      <!-- FOG -->
-
+      <!-- 3D Model (Turtwig Pokémon) -->
+ 
       <a-entity
-        position="0 2.25 -15"
-        particle-system="color: #EF0000,#44CC00"
+        gltf-model="models/turtwig.glb"
+        position="44.3668 12.89926 49.91084"
+        rotation="0 41.15670433983729 0"
+        scale="130 130 130"
+        visible=""
+        id="turtwig"
       ></a-entity>
 
-      <!-- TEXT -->
 
+    <!-- TEXT -->
+
+    <a-text
+      font="kelsonsans"
+      value="Welcome to the Pokémon World!"
+      width="30"
+      position="-143.43281 44 62"
+      rotation="0 -40.730996698055094 0"
+      color="#0d0c0c"
+      text="value: Welcome to the Pokémon World! Get ready for an adventure...; color: #d95000; transparent: false"
+      scale="4 4 4"
+      id="welcome"
+    ></a-text>
+
+    <a-text
+      font="kelsonsans"
+      value="How to Move"
+      width="30"
+      position="-143.43281 28 62.05978"
+      rotation="0 -40.730996698055094 0"
+      color="#0d0c0c"
+      text="value: To explore, use your device. On mobile, hold down one thumb to move forward and two thumbs to move backward. On desktop, use WASD and arrow keys.; color: #d95000; transparent: false"
+      scale="4 4 4"
+      id="mobileinstructions"
+    ></a-text>
+
+
+      <!-- Text for Turtwig -->
       <a-text
         font="kelsonsans"
-        value="Desktop"
+        value="Meet Turtwig"
         width="30"
-        position="-143.43281 44 62"
-        rotation="0 -40.730996698055094 0"
-        color="#0d0c0c"
-        text="value: Welcome! Here's how to get around...; color: #d95000; transparent: false"
-        scale="4 4 4"
-        id="welcome"
-      ></a-text>
-
-      <a-text
-        font="kelsonsans"
-        value="Instructions"
-        width="30"
-        position="-143.43281 28 62.05978"
-        rotation="0 -40.730996698055094 0"
-        color="#0d0c0c"
-        text="value: MOBILE: Hold down one thumb to move forward, two thumbs to move backward.; color: #d95000; transparent: false"
-        scale="4 4 4"
-        id="mobileinstructions"
-      ></a-text>
-
-      <a-text
-        font="kelsonsans"
-        value="Desktop"
-        width="30"
-        position="-143.43281 15 62.05978"
-        rotation="0 -40.730996698055094 0"
-        color="#0d0c0c"
-        text="value: DESKTOP: Use WASD + arrow keys.; color: #d95000; transparent: false"
-        scale="4 4 4"
-        id="desktopinstructions"
-      ></a-text>
-
-      <a-text
-        font="kelsonsans"
-        value="QR"
-        width="30"
-        position="-143.43281 5.7 62.05978"
-        rotation="0 -40.730996698055094 0"
-        color="#0d0c0c"
-        text="value: Scan the code to switch to mobile.; color: #d95000; transparent: false"
-        scale="4 4 4"
-        id="desktopinstructions"
-      ></a-text>
-
-      <a-text
-        font="kelsonsans"
-        value="Instructions"
-        width="30"
-        position="36.17741 30.35529 89.1655"
-        rotation="0 -48.53582778332717 0"
+        position="44.3668 20 49.91084"
+        rotation="0 41.15670433983729 0"
         color="#302d2c"
-        text="value: Turtwig; color: #302d2c; transparent: false"
+        text="value: You'll encounter many Pokémon on your adventure. Meet Turtwig, your first companion!; color: #302d2c; transparent: false"
         scale="2 2 2"
         id="turtwiglabel"
       ></a-text>
 
-      <!-- QR Code -->
 
+      <!-- Customized Lighting -->
+      <a-light type="ambient" color="#888"></a-light>
+      <a-light type="directional" position="-5 5 -5" intensity="0.5"></a-light>
 
-
-      <!-- Basic movement and teleportation  -->
+        <!-- Basic movement and teleportation  -->
 
       <a-entity
         id="cameraRig"
@@ -230,6 +212,7 @@
           visible="true"
         ></a-entity>
       </a-entity>
+
     </a-scene>
   </body>
 </html>
