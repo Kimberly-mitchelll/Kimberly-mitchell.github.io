@@ -1,27 +1,35 @@
-AFRAME.registerComponent('carrot-interaction', {
+// Custom component for carrot throwing interaction
+AFRAME.registerComponent('carrot-thrower', {
   init: function () {
-    var carrots = document.querySelectorAll('.carrot.interactive');
-    var hangrySnowman = document.querySelector('#hangrySnowman');
-    var happySnowman = document.querySelector('#happySnowman');
-    var text = document.querySelector('a-text');
-    var collectedCarrots = 0;
-    var requiredCarrots = 3;
+    var el = this.el;
 
-    carrots.forEach(function (carrot) {
-      carrot.addEventListener('click', function () {
-        // Remove the clicked carrot
-        this.parentNode.removeChild(this);
-        collectedCarrots++;
+    el.addEventListener('click', function () {
+      // Emit an event to notify the snowman that a carrot has been thrown.
+      var snowman = document.querySelector('#hangrySnowman');
+      snowman.emit('carrot-thrown');
+      
+      // Remove the carrot from the scene.
+      el.parentNode.removeChild(el);
+    });
+  },
+});
 
-        if (collectedCarrots >= requiredCarrots) {
-          // Shrink the hangry snowman
-          hangrySnowman.object3D.scale.set(0.01, 0.01, 0.01);
-          hangrySnowman.setAttribute('visible', 'false');
+// Custom component to manage snowman's response to carrots
+AFRAME.registerComponent('a-snowman-carrots', {
+  init: function () {
+    var el = this.el;
+    var carrotCount = 0;
 
-          // Show the happy snowman
-          happySnowman.setAttribute('visible', 'true');
-        }
-      });
+    el.addEventListener('carrot-thrown', function () {
+      carrotCount++;
+      // Check if three carrots have been thrown, and if so, transform the snowman.
+      if (carrotCount >= 3) {
+        // Hide the hangry snowman and show the happy snowman.
+        var hangrySnowman = document.querySelector('#hangrySnowman');
+        var happySnowman = document.querySelector('#happySnowman');
+        hangrySnowman.setAttribute('visible', false);
+        happySnowman.setAttribute('visible', true);
+      }
     });
   },
 });
