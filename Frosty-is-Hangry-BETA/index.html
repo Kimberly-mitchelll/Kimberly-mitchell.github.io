@@ -37,7 +37,10 @@
         src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/hangrysnowman.glb?v=1699821631283"
         static-body
         collision="type: static; radius: 15.5"
-      ></a-gltf-model>
+      >
+        <!-- Here, I added the carrot-throwing component to the snowman. -->
+        <a-snowman-carrots></a-snowman-carrots>
+      </a-gltf-model>
 
       <!-- Happy Snowman (initially hidden) -->
       <a-gltf-model
@@ -51,7 +54,7 @@
       ></a-gltf-model>
 
       <!-- Carrots (3 carrots in total) -->
-
+      <!-- I have added the carrot-throwing component to each carrot. -->
       <a-gltf-model
         id="carrot1"
         class="carrot interactive"  
@@ -61,20 +64,7 @@
         src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
         dynamic-body
         collision="type: dynamic; radius: 0.1"
-        carrot-interaction  
-      ></a-gltf-model>
-
-      
-      <a-gltf-model
-        id="carrot1"
-        class="carrot interactive"
-        position="-10 0 5"
-        rotation="0 0 0"
-        scale="0.01 0.01 0.01"
-        src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
-        dynamic-body
-        collision="type: dynamic; radius: 0.1"
-        carrot-interaction
+        carrot-thrower
       ></a-gltf-model>
 
       <a-gltf-model
@@ -86,7 +76,7 @@
         src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
         dynamic-body
         collision="type: dynamic; radius: 0.1"
-        carrot-interaction
+        carrot-thrower
       ></a-gltf-model>
 
       <a-gltf-model
@@ -98,7 +88,7 @@
         src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
         dynamic-body
         collision="type: dynamic; radius: 0.1"
-        carrot-interaction
+        carrot-thrower
       ></a-gltf-model>
 
       <!-- Text for Directions -->
