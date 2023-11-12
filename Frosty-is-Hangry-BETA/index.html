@@ -1,172 +1,212 @@
+<!DOCTYPE html>
 <html>
   <head>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Reference your script.js file here -->
     <script src="https://unpkg.com/aframe-vr-mode-watcher@1.0.0/dist/aframe-vr-mode-watcher.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-system@4.0.6/dist/aframe-physics-system.js"></script>
   </head>
+
   <body>
-    <a-scene>
+    <a-scene physics="gravity: -9.8; debug: true;">
+  
+    <!-- Camera and Cursor Setup -->
+    <a-camera id="cam" position="-10 7 35">
+      <a-cursor
+        color="white"
+        fuse="true"
+        raycaster="objects: .carrot, #hangrySnowman, .interactive;"
+        rayorigin="cursor"
+      ></a-cursor>
+    </a-camera>
       
-    	<!-- Camera and Cursor Setup -->
-      <a-camera id="cam" position="-10 7 35">
-        <a-cursor
-          color="white"
-          fuse="true"
-          rayOrigin="mouse"
-          objects=".carrot, #happySnowman"
-        ></a-cursor>
-      </a-camera>
+        
+      <a-entity
+        environment="preset: goldmine; playArea:2; seed: 61; skyType: gradient; skyColor: #000000; skyColor2: #e97451; ground: hills; groundYScale: 20; groundColor: #f7f6fa; dressing: none;"
+      ></a-entity>
+
+      <!-- Hangry Snowman -->
+      <a-gltf-model
+        id="hangrySnowman"
+        position="0 0 -5"
+        rotation="0 0 0"
+        scale="14 14 14"
+        src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/hangrysnowman.glb?v=1699821631283"
+        static-body
+        collision="type: static; radius: 15.5"
+      ></a-gltf-model>
+
+      <!-- Happy Snowman (initially hidden) -->
+      <a-gltf-model
+        id="happySnowman"
+        position="0 0 -5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/happysnowman.glb?v=1699821630768"
+        dynamic-body
+        visible="false"
+      ></a-gltf-model>
+
+      <!-- Carrots (3 carrots in total) -->
+      <a-gltf-model
+        id="carrot1"
+        class="carrot interactive"
+        position="-10 0 5"
+        rotation="0 0 0"
+        scale="0.01 0.01 0.01"
+        src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
+        dynamic-body
+        collision="type: dynamic; radius: 0.1"
+      ></a-gltf-model>
+
+      <a-gltf-model
+        id="carrot2"
+        class="carrot interactive"
+        position="10 0 5"
+        rotation="0 0 0"
+        scale="0.01 0.01 0.01"
+        src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
+        dynamic-body
+        collision="type: dynamic; radius: 0.1"
+      ></a-gltf-model>
+
+      <a-gltf-model
+        id="carrot3"
+        class="carrot interactive"
+        position="0 0 15"
+        rotation="0 0 0"
+        scale="0.01 0.01 0.01"
+        src="https://cdn.glitch.global/e1008c7a-2b94-4830-b4b2-bca7c816b32a/carrot.glb?v=1699821617077"
+        dynamic-body
+        collision="type: dynamic; radius: 0.1"
+      ></a-gltf-model>
+
+      <!-- Text for Directions -->
+      <a-text
+        position="-10 3 20"
+        rotation="0 0 0"
+        color="white"
+        value="Click the carrots to feed the Hangry Snowman and make him happy!"
+        scale="4 4 4"
+      ></a-text>
+
+      <a-gltf-model
+        id="sidewalk"
+        sidewalk2=""
+        position="0 -11 0"
+        rotation="0 0 0"
+        scale="1 1 1"
+        dynamic-body
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/winter%20sidewalk.glb?v=1659905321523"
+        collision="type: static; radius: 1"
+      ></a-gltf-model>
+
+      <a-assets-item
+        id="tavern"
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/Home.glb?v=1661137291870"
+      ></a-assets-item>
 
       <a-entity
-        environment="preset: goldmine;
-                      playArea:2;
-                     seed: 61;
-                     skyType: gradient;
-                     skyColor: #000000;
-                     skyColor2: #e97451;
-                     ground: hills;
-                     groundYScale: 20;
-                     groundColor: #f7f6fa;
-                     dressing: none;    
-                     
-                     "
-      >
-      </a-entity>
-  
-		<a-entity
-		  gltf-model="models/wintersidewalk.glb"
-		  id="sidewalk"
-		  position="0 -11 0"
-		  rotation="0 0 0"
-		  scale="1 1 1"
-		></a-entity>
+        id="tavern2"
+        position="12 2 -70"
+        rotation="0 180 0"
+        scale=".02 .02 .02"
+        gltf-model="#tavern"
+        animation-mixer
+        dynamic-body
+        collision="type: static; radius: 1"
+      ></a-entity>
 
-		<a-entity
-		  gltf-model="models/Home.glb"
-		  id="tavern2"
-		  position="12 2 -70"
-		  rotation="0 180 0"
-		  scale=".02 .02 .02"
-		  animation-mixer
-		></a-entity>
+      <a-assets-item
+        id="home"
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/house%20alt.glb?v=1661137097738"
+      ></a-assets-item>
 
-		<a-entity
-		  gltf-model="models/winterhouse alt.glb"
-		  id="home2"
-		  position="10 1 -30"
-		  rotation="0 0 0"
-		  scale="3 3 3"
-		  animation-mixer
-		></a-entity>
+      <a-entity
+        id="home2"
+        position="10 1 -30"
+        rotation="0 0 0"
+        scale="3 3 3"
+        gltf-model="#home"
+        animation-mixer
+        dynamic-body
+      ></a-entity>
 
-		<a-entity
-		  gltf-model="models/winterhouse alt.glb"
-		  id="neighbor2"
-		  position="60 2 -50"
-		  rotation="0 -90 0"
-		  scale="3 3 3"
-		  animation-mixer
-		></a-entity>
+      <a-assets-item
+        id="neighbor"
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/winter%20house%20alt.glb?v=1661136686740"
+      ></a-assets-item>
 
-		<a-entity
-		  gltf-model="models/snow scene.glb"
-		  id="snow2"
-		  position="-10 1 -30"
-		  rotation="0 0 0"
-		  scale="10 10 10"
-		  animation-mixer
-		></a-entity>
+      <a-entity
+        id="neighbor2"
+        position="60 2 -50"
+        rotation="0 -90 0"
+        scale="3 3 3"
+        gltf-model="#neighbor"
+        animation-mixer
+        dynamic-body
+        collision="type: static; radius: 1"
+      ></a-entity>
 
-		<a-entity
-		  gltf-model="models/WinterVillage.glb"
-		  id="village2"
-		  position="-40 -5 -40"
-		  rotation="0 -5 0"
-		  scale="5 5 5"
-		  animation-mixer
-		></a-entity>
+      <a-assets-item
+        id="snow"
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/snow%20scene.glb?v=1659904411499"
+      ></a-assets-item>
 
-		<a-entity
-		  gltf-model="models/streetlight.glb"
-		  id="streetlamp"
-		  position="-10 -2 -20"
-		  rotation="0 -90 0"
-		  scale="4 4 4"
-		></a-entity>
+      <a-entity
+        id="snow2"
+        position="-10 1 -30"
+        rotation="0 0 0"
+        scale="10 10 10"
+        gltf-model="#snow"
+        animation-mixer
+        dynamic-body
+        collision="type: static; radius: 10"
+      ></a-entity>
 
-		<a-entity
-		  gltf-model="models/lighttest.glb"
-		  id="ringlight2"
-		  position="20 1 -18"
-		  rotation="0 -90 0"
-		  scale="1 1 1"
-		  animation-mixer
-		></a-entity>
+      <a-assets-item
+        id="village"
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/Winter%20Village.glb?v=1659905533170"
+      ></a-assets-item>
 
-		<!-- Hangry Snowman (initially 3 times bigger)-->
-	<a-gltf-model
-	  id="hangrySnowman"
-	  position="0 0 -5"
-	  rotation="0 0 0"
-	  scale="3 3 3"
-	  src="models/hangrysnowman.glb"
-	></a-gltf-model>
+      <a-entity
+        id="village2"
+        position="-40 -5 -40"
+        rotation="0 -5 0"
+        scale="5 5 5"
+        gltf-model="#village"
+        animation-mixer
+        dynamic-body
+        collision="type: static; radius: 5"
+      ></a-entity>
 
-	<!-- Happy Snowman (initially hidden) -->
-	<a-gltf-model
-	  id="happySnowman"
-	  position="0 0 -5"
-	  rotation="0 0 0"
-	  scale="1 1 1"
-	  src="models/happysnowman.glb"
-	  visible="false"
-	></a-gltf-model>
+      <a-gltf-model
+        id="streetlamp"
+        streetlamp2=""
+        position="-10 -2 -20"
+        rotation="0 -90 0"
+        scale="4 4 4"
+        dynamic-body
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/street%20light.glb?v=1659906298507"
+      ></a-gltf-model>
 
-	<!-- Carrots (you can add multiple carrots) -->
-	<a-gltf-model
-	  class="carrot"
-	  position="2 0 -5"
-	  rotation="0 0 0"
-	  scale="0.1 0.1 0.1"
-	  src="models/carrot.glb"
-	></a-gltf-model>
+      <a-assets-item
+        id="ringlight"
+        src="https://cdn.glitch.global/914eabe6-a62a-4ad0-a91d-6753a9599474/light%20test.glb?v=1659907591625"
+      ></a-assets-item>
 
-	<!-- Animation for hangry snowman shrinking -->
-	      <a-animation
-	        attribute="scale"
-	        begin="shrinkSnowman"
-	        from="3 3 3"
-	        to="1 1 1"
-	        dur="1000"
-	        fill="forwards"
-	        repeat="0"
-	      ></a-animation>
-
-
-	    <!-- JavaScript for carrot collection and snowman transformation -->
-	      <script>
-	        let carrotCount = 0; // Initialize the carrot count
-
-	        // Function to handle carrot collection
-	        function collectCarrot() {
-	          carrotCount++; // Increment the carrot count
-	          if (carrotCount === 3) {
-	            // If the player collects 3 carrots
-	            document.querySelector("#hangrySnowman").emit("shrinkSnowman"); // Emit the animation event
-	            document.querySelector("#happySnowman").setAttribute("visible", "true"); // Show the happy snowman
-	          }
-	        }
-
-	        // Add event listeners for carrot collection
-	        const carrots = document.querySelectorAll(".carrot");
-	        carrots.forEach((carrot) => {
-	          carrot.addEventListener("click", () => {
-	            collectCarrot();
-	            carrot.setAttribute("visible", "false"); // Hide the collected carrot
-	          });
-	        });
-	      </script>
-	    </a-scene>
+      <a-entity
+        id="ringlight2"
+        position="20 1 -18"
+        rotation="0 -90 0"
+        scale="1 1 1"
+        gltf-model="#ringlight"
+        dynamic-body
+        animation-mixer
+      ></a-entity>
+    </a-scene>
   </body>
 </html>
